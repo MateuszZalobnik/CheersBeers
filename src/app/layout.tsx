@@ -1,18 +1,22 @@
-import './globals.css'
+'use client';
+import './globals.css';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '@/styles/theme';
+import StyledComponentsRegistry from './lib/registry';
 
-export const metadata = {
-  title: 'CheerToBeers',
-  description: 'Beers web app built using free API',
-}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ThemeProvider theme={theme}>
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        </ThemeProvider>
+      </body>
     </html>
-  )
+  );
 }
