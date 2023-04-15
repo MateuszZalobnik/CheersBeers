@@ -9,7 +9,7 @@ interface BtnProps {
 
 export const FavListBtn:React.FC<BtnProps> = ({setOpenFav, setFirstOpenFav}) => {
   const handleClick = () => {
-    setOpenFav(true);
+    setOpenFav(prev => !prev);
     setFirstOpenFav(true);
   }
   return (

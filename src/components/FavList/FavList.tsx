@@ -11,9 +11,16 @@ const URL = 'https://api.punkapi.com/v2/beers?ids=';
 interface FavListProps {
   setOpenFav: Dispatch<SetStateAction<boolean>>;
   openFav: boolean;
+  setIds: Dispatch<SetStateAction<number[]>>;
+  ids: number[];
 }
 
-export const FavList: React.FC<FavListProps> = ({ setOpenFav, openFav }) => {
+export const FavList: React.FC<FavListProps> = ({
+  setOpenFav,
+  openFav,
+  setIds,
+  ids,
+}) => {
   const handleClick = () => {
     setOpenFav(false);
   };
@@ -21,7 +28,6 @@ export const FavList: React.FC<FavListProps> = ({ setOpenFav, openFav }) => {
   if (storedIds) {
     const params = JSON.parse(storedIds).join('|');
     const { data, error, isLoading } = useSWR(URL + params, fetcher);
-    console.log(data);
     return (
       <Wrapper className={openFav ? 'slidein' : ''}>
         <CloseBtn onClick={handleClick}>
@@ -40,6 +46,8 @@ export const FavList: React.FC<FavListProps> = ({ setOpenFav, openFav }) => {
               }) => {
                 return (
                   <FavListItem
+                    setIds={setIds}
+                    ids={ids}
                     key={item.id}
                     name={item.name}
                     image={item.image_url}

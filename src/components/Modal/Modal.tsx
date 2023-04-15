@@ -41,7 +41,6 @@ export const Modal: React.FC<ModalProps> = ({
     return null;
   }
   const { data, error, isLoading } = useSWR(URL + id, fetcher);
-  console.log(data);
   return (
     <WrapperBackground>
       {data && (
@@ -135,11 +134,17 @@ const Name = styled.div`
   color: ${({ theme }) => theme.colors.blue};
   font-size: ${({ theme }) => theme.fontSize.m};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
+  ${({ theme }) => theme.device.tablet} {
+    font-size: ${({ theme }) => theme.fontSize.xl};
+  }
 `;
 
 const Description = styled.div`
   color: ${({ theme }) => theme.colors.lightGrey};
   font-size: ${({ theme }) => theme.fontSize.s};
+  ${({ theme }) => theme.device.tablet} {
+    font-size: ${({ theme }) => theme.fontSize.l};
+  }
 `;
 
 const InnerWrapper = styled.div`
@@ -169,6 +174,9 @@ const FavBtn = styled.div`
   margin-left: auto;
   font-size: 40px;
   cursor: pointer;
+   ${({ theme }) => theme.device.tablet} {
+    font-size: 70px;
+  }
 `;
 const CloseBtn = styled.div`
   cursor: pointer;
@@ -176,4 +184,7 @@ const CloseBtn = styled.div`
   margin-left: auto;
   width: max-content;
   font-size: 30px;
+  ${({ theme }) => theme.device.tablet} {
+    font-size: 50px;
+  }
 `;

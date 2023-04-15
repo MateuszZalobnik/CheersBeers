@@ -23,7 +23,6 @@ export const BeerList: React.FC<BeerListProps> = ({
   setIds,
   ids,
 }) => {
-  // console.log(data);
 
   useEffect(() => {
     const storedIds = localStorage.getItem('fav');

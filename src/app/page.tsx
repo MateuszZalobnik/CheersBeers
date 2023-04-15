@@ -22,7 +22,6 @@ export default function Home() {
   if (searchTerm != '') {
     params = `beer_name=${searchTerm}`;
   } else {
-    // params=`page=1&per_page=160`
     params = ``;
   }
   const { data, error, isLoading } = useSWR(URL + params, fetcher);
@@ -35,7 +34,9 @@ export default function Home() {
         ids={ids}
       />
       <FavListBtn setOpenFav={setOpenFav} setFirstOpenFav={setFirstOpenFav} />
-      {firstOpenFav && <FavList setOpenFav={setOpenFav} openFav={openFav} />}
+      {firstOpenFav && (
+        <FavList setOpenFav={setOpenFav} openFav={openFav} setIds={setIds} ids={ids} />
+      )}
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <BeerList
         data={data}

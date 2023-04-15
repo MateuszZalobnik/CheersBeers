@@ -10,7 +10,6 @@ export const SearchBar: React.FC<{
   const [inputValue, setInputValue] = useState('');
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputValue);
     setSearchTerm(inputValue);
   };
   return (
@@ -38,6 +37,7 @@ const Wrapper = styled.form`
   width: 90%;
   padding: 2px 30px 2px 30px;
   border-radius: ${({ theme }) => theme.borderRadius.m};
+  border: 3px solid ${({ theme }) => theme.colors.lightGrey};
   background-color: ${({ theme }) => theme.colors.dark};
   display: flex;
   justify-content: center;
@@ -58,6 +58,10 @@ const StyledInput = styled.input`
   border: none;
   background-color: ${({ theme }) => theme.colors.dark};
   color: ${({ theme }) => theme.colors.lightGrey};
+  font-size: ${({ theme }) => theme.fontSize.m};
+  ${({ theme }) => theme.device.tablet} {
+    font-size: ${({ theme }) => theme.fontSize.l};
+  }
 `;
 
 const StyledButton = styled.button`
@@ -70,7 +74,6 @@ const StyledButton = styled.button`
 
 const Label = styled.div`
   width: 100%;
-  border-bottom: 3px solid ${({ theme }) => theme.colors.lightGrey};
   ${({ theme }) => theme.device.tablet} {
     /* width: 40%; */
   }

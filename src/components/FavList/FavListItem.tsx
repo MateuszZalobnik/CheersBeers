@@ -10,6 +10,8 @@ interface BeerItemProps {
   ibu: string;
   id: string;
   description: string;
+  setIds: Dispatch<SetStateAction<number[]>>;
+  ids: number[];
 }
 
 export const FavListItem: React.FC<BeerItemProps> = ({
@@ -19,14 +21,16 @@ export const FavListItem: React.FC<BeerItemProps> = ({
   abv,
   id,
   description,
+  setIds,
+  ids,
 }) => {
   const truncatedDescription = truncateText(description, 20);
- 
-//   const removeFav = (currentId: number) => {
-//     const newIds = ids.filter((num) => num !== currentId);
-//     localStorage.setItem('fav', JSON.stringify(newIds));
-//     setIds(newIds);
-//   };
+
+  const removeFav = (currentId: number) => {
+    const newIds = ids.filter((num) => num !== currentId);
+    localStorage.setItem('fav', JSON.stringify(newIds));
+    setIds(newIds);
+  };
 
   return (
     <Wrapper>
@@ -34,7 +38,7 @@ export const FavListItem: React.FC<BeerItemProps> = ({
       {/* <Image src={image} alt={name} width={100} height={400} /> */}
       <ContentWrapper>
         <FavBtn>
-            {/* <HeartFillIconSvg onClick={() => removeFav(Number(id))} /> */}
+          <HeartFillIconSvg onClick={() => removeFav(Number(id))} />
         </FavBtn>
         <div>
           <Name>{name}</Name>

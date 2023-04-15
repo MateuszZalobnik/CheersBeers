@@ -122,11 +122,17 @@ const Name = styled.div`
   color: ${({ theme }) => theme.colors.blue};
   font-size: ${({ theme }) => theme.fontSize.m};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
+  ${({ theme }) => theme.device.tablet} {
+    font-size: ${({ theme }) => theme.fontSize.xl};
+  }
 `;
 
 const Description = styled.div`
   color: ${({ theme }) => theme.colors.lightGrey};
   font-size: ${({ theme }) => theme.fontSize.s};
+  ${({ theme }) => theme.device.tablet} {
+    font-size: ${({ theme }) => theme.fontSize.l};
+  }
 `;
 
 const InnerWrapper = styled.div`
@@ -164,4 +170,8 @@ const ReadMoreBtn = styled.button`
   width: max-content;
   margin-left: auto;
   cursor: pointer;
+  font-size: ${({ theme }) => theme.fontSize.m};
+  ${({ theme }) => theme.device.tablet} {
+    font-size: ${({ theme }) => theme.fontSize.l};
+  }
 `;
