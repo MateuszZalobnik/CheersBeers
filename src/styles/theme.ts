@@ -21,8 +21,8 @@ export const theme = {
     bold: '700',
   },
   borderRadius: {
-    xs: '10px',
-    s: '15px',
+    xs: '6px',
+    s: '10px',
     m: '20px',
     l: '30px',
   },

@@ -13,12 +13,20 @@ export const SearchBar = () => {
 };
 
 const Wrapper = styled.div`
+  width: 90%;
+  padding: 2px 30px 2px 30px;
+  border-radius: ${({theme}) => theme.borderRadius.m};
+  background-color: ${({ theme }) => theme.colors.dark};
   display: flex;
   justify-content: center;
-  padding-top: 20px;
+  position: sticky;
+  top: 10px;
+  margin: 20px auto 0 auto;
   ${({ theme }) => theme.device.tablet} {
     position: sticky;
     top: 10px;
+    margin: 70px auto 0 auto;
+    width: 40%;
   }
 `;
 
@@ -36,9 +44,9 @@ const StyledLoupeIconSvg = styled(LoupeIconSvg)`
 `;
 
 const Label = styled.div`
-  width: 80%;
+  width: 100%;
   border-bottom: 3px solid ${({ theme }) => theme.colors.lightGrey};
   ${({ theme }) => theme.device.tablet} {
-    width: 40%;
+    /* width: 40%; */
   }
 `;

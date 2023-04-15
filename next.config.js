@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ['images.punkapi.com'],
+  }
 };
 
 module.exports = nextConfig;
