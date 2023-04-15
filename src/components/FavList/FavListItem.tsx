@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Image from 'next/image';
 import { HeartFillIconSvg } from '../Icons/HeartFillIconSvg';
 import { HeartIconSvg } from '../Icons/HeartIconSvg';
 import { Dispatch, SetStateAction } from 'react';
@@ -11,67 +10,47 @@ interface BeerItemProps {
   ibu: string;
   id: string;
   description: string;
-  setIds: Dispatch<SetStateAction<number[]>>;
-  setSelectedId: Dispatch<SetStateAction<string | null>>;
-  ids: number[];
 }
 
-export const BeerItem: React.FC<BeerItemProps> = ({
+export const FavListItem: React.FC<BeerItemProps> = ({
   name,
   image,
   ibu,
   abv,
   id,
   description,
-  setIds,
-  ids,
-  setSelectedId,
 }) => {
   const truncatedDescription = truncateText(description, 20);
-  const addFav = (currentId: number) => {
-    const newIds = [...ids, currentId]; // replace with your own array of IDs
-    localStorage.setItem('fav', JSON.stringify(newIds));
-    setIds(newIds);
-  };
-
-  const removeFav = (currentId: number) => {
-    const newIds = ids.filter((num) => num !== currentId);
-    localStorage.setItem('fav', JSON.stringify(newIds));
-    setIds(newIds);
-  };
+ 
+//   const removeFav = (currentId: number) => {
+//     const newIds = ids.filter((num) => num !== currentId);
+//     localStorage.setItem('fav', JSON.stringify(newIds));
+//     setIds(newIds);
+//   };
 
   return (
     <Wrapper>
-      <StyledImg src={image} alt={name} />
+      {/* <StyledImg src={image} alt={name} /> */}
       {/* <Image src={image} alt={name} width={100} height={400} /> */}
-      <Container>
-        <ReadMoreBtn onClick={() => setSelectedId(id)}>
-          Czytaj więcej...
-        </ReadMoreBtn>
-        <ContentWrapper>
-          <FavBtn>
-            {ids.includes(Number(id)) ? (
-              <HeartFillIconSvg onClick={() => removeFav(Number(id))} />
-            ) : (
-              <HeartIconSvg onClick={() => addFav(Number(id))} />
-            )}
-          </FavBtn>
-          <div>
-            <Name>{name}</Name>
-            <Description>{truncatedDescription}</Description>
-          </div>
-          <InnerWrapper>
-            <Params>
-              <span className="value">{abv}%</span>
-              <span>ABV</span>
-            </Params>
-            <Params>
-              <span className="value">{ibu}%</span>
-              <span>IBU</span>
-            </Params>
-          </InnerWrapper>
-        </ContentWrapper>
-      </Container>
+      <ContentWrapper>
+        <FavBtn>
+            {/* <HeartFillIconSvg onClick={() => removeFav(Number(id))} /> */}
+        </FavBtn>
+        <div>
+          <Name>{name}</Name>
+          <Description>{truncatedDescription}</Description>
+        </div>
+        <InnerWrapper>
+          <Params>
+            <span className="value">{abv}%</span>
+            <span>ABV</span>
+          </Params>
+          <Params>
+            <span className="value">{ibu}%</span>
+            <span>IBU</span>
+          </Params>
+        </InnerWrapper>
+      </ContentWrapper>
     </Wrapper>
   );
 };
@@ -86,6 +65,7 @@ function truncateText(text: string, maxWords: number) {
 }
 
 const Wrapper = styled.li`
+  background-color: ${({ theme }) => theme.colors.darkGrey};
   display: flex;
   margin-top: 20px;
   border-radius: ${({ theme }) => theme.borderRadius.s};
@@ -95,19 +75,11 @@ const Wrapper = styled.li`
   box-shadow: 8px 8px 26px -9px rgba(0, 0, 0, 1);
 `;
 
-const Container = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-left: 20px;
-`;
-
 const ContentWrapper = styled.div`
   height: max-content;
   align-self: end;
-  /* background-color: ${({ theme }) => theme.colors.darkGrey}; */
   width: 100%;
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -155,13 +127,5 @@ const Params = styled.div`
 const FavBtn = styled.div`
   margin-left: auto;
   font-size: 40px;
-  cursor: pointer;
-`;
-const ReadMoreBtn = styled.button`
-  border: none;
-  background-color: ${({ theme }) => theme.colors.dark};
-  color: ${({ theme }) => theme.colors.blue};
-  width: max-content;
-  margin-left: auto;
   cursor: pointer;
 `;

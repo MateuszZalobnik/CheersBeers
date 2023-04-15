@@ -1,14 +1,36 @@
 import styled from 'styled-components';
-import useSWR from 'swr';
-import axios from 'axios';
+
 import { BeerItem } from './BeerItem';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
-const URL = 'https://api.punkapi.com/v2/beers?page=1&per_page=10';
+interface BeerListProps {
+  data: {
+    name: string;
+    image_url: string;
+    id: string;
+    abv: string;
+    ibu: string;
+    description: string;
+  }[];
+  setSelectedId: Dispatch<SetStateAction<string | null>>;
+  setIds: Dispatch<SetStateAction<number[]>>;
+  ids: number[];
+}
 
-export const BeerList = () => {
-  const { data, error, isLoading } = useSWR(URL, fetcher);
-  console.log(data);
+export const BeerList: React.FC<BeerListProps> = ({
+  data,
+  setSelectedId,
+  setIds,
+  ids,
+}) => {
+  // console.log(data);
+
+  useEffect(() => {
+    const storedIds = localStorage.getItem('fav');
+    if (storedIds) {
+      setIds(JSON.parse(storedIds));
+    }
+  }, []);
   return (
     <Wrapper>
       <ul>
@@ -24,6 +46,7 @@ export const BeerList = () => {
             }) => {
               return (
                 <BeerItem
+                  setSelectedId={setSelectedId}
                   key={item.id}
                   name={item.name}
                   image={item.image_url}
@@ -31,6 +54,8 @@ export const BeerList = () => {
                   abv={item.abv}
                   ibu={item.ibu}
                   description={item.description}
+                  setIds={setIds}
+                  ids={ids}
                 />
               );
             }
@@ -43,7 +68,7 @@ export const BeerList = () => {
 const Wrapper = styled.div`
   width: 90%;
   margin: auto;
-   ${({ theme }) => theme.device.tablet} {
+  ${({ theme }) => theme.device.tablet} {
     width: 60%;
   }
 `;
