@@ -28,13 +28,15 @@ export const FavList: React.FC<FavListProps> = ({
   if (storedIds) {
     const params = JSON.parse(storedIds).join('|');
     const { data, error, isLoading } = useSWR(URL + params, fetcher);
+    console.log(data);
     return (
       <Wrapper className={openFav ? 'slidein' : ''}>
+        <Title>Ulubione:</Title>
         <CloseBtn onClick={handleClick}>
           <CloseSvg />
         </CloseBtn>
         <ul>
-          {data &&
+          {data ? (
             data.map(
               (item: {
                 name: string;
@@ -58,7 +60,10 @@ export const FavList: React.FC<FavListProps> = ({
                   />
                 );
               }
-            )}
+            )
+          ) : (
+            <>Nie masz jeszcze ulubionych piw.</>
+          )}
         </ul>
       </Wrapper>
     );
@@ -122,4 +127,10 @@ const CloseBtn = styled.div`
   margin-left: auto;
   width: max-content;
   font-size: 30px;
+`;
+
+const Title = styled.div`
+  text-align: center;
+  color: ${({ theme }) => theme.colors.dark};
+  font-size: ${({ theme }) => theme.fontSize.l};
 `;
