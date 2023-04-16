@@ -2,16 +2,37 @@ import styled from 'styled-components';
 import { LoupeIconSvg } from '../Icons/LoupeIconSvg';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ReloadIconSvg } from '../Icons/ReloadIconSvg';
-
+interface DataType {
+  name: string;
+  image_url: string;
+  id: string;
+  abv: string;
+  ibu: string;
+  description: string;
+}
 export const SearchBar: React.FC<{
   setSearchTerm: Dispatch<SetStateAction<string>>;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
+  setData: Dispatch<SetStateAction<DataType[]>>;
   searchTerm: string;
-}> = ({ searchTerm, setSearchTerm }) => {
+}> = ({ searchTerm, setSearchTerm, setCurrentPage, setData }) => {
   const [inputValue, setInputValue] = useState('');
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSearchTerm(inputValue);
+    if (inputValue != '') {
+      setSearchTerm(inputValue);
+    } else {
+      clear();
+    }
   };
+
+  const clear = () => {
+    setSearchTerm('');
+    setInputValue('');
+    setCurrentPage(1);
+    setData([]);
+  };
+
   return (
     <Wrapper onSubmit={handleSubmit}>
       <Label>
@@ -23,7 +44,7 @@ export const SearchBar: React.FC<{
         />
         <StyledButton type="submit">
           {searchTerm != '' ? (
-            <ReloadIconSvg onClick={() => setInputValue('')} />
+            <ReloadIconSvg onClick={clear} />
           ) : (
             <LoupeIconSvg />
           )}
