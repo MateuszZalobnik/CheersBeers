@@ -63,7 +63,14 @@ export const FavList: React.FC<FavListProps> = ({
       </Wrapper>
     );
   } else {
-    return <Wrapper onClick={handleClick}></Wrapper>;
+    return (
+      <Wrapper className={openFav ? 'slidein' : ''}>
+        <CloseBtn onClick={handleClick}>
+          <CloseSvg />
+        </CloseBtn>
+        Nie masz jeszcze ulubionych piw.
+      </Wrapper>
+    );
   }
 };
 
@@ -88,6 +95,7 @@ const SlideOut = keyframes`
 const Wrapper = styled.div`
   z-index: 101;
   background-color: ${({ theme }) => theme.colors.blue};
+  color: ${({ theme }) => theme.colors.dark};
   width: 100%;
   height: 100vh;
   position: fixed;
