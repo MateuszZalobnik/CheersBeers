@@ -143,7 +143,7 @@ const Description = styled.div`
   color: ${({ theme }) => theme.colors.lightGrey};
   font-size: ${({ theme }) => theme.fontSize.s};
   ${({ theme }) => theme.device.tablet} {
-    font-size: ${({ theme }) => theme.fontSize.l};
+    font-size: ${({ theme }) => theme.fontSize.m};
   }
 `;
 
@@ -174,7 +174,7 @@ const FavBtn = styled.div`
   margin-left: auto;
   font-size: 40px;
   cursor: pointer;
-   ${({ theme }) => theme.device.tablet} {
+  ${({ theme }) => theme.device.tablet} {
     font-size: 70px;
   }
 `;
