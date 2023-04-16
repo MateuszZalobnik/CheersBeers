@@ -35,7 +35,13 @@ export default function Home() {
       />
       <FavListBtn setOpenFav={setOpenFav} setFirstOpenFav={setFirstOpenFav} />
       {firstOpenFav && (
-        <FavList setOpenFav={setOpenFav} openFav={openFav} setIds={setIds} ids={ids} />
+        <FavList
+          setOpenFav={setOpenFav}
+          openFav={openFav}
+          setIds={setIds}
+          ids={ids}
+          setSelectedId={setSelectedId}
+        />
       )}
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <BeerList

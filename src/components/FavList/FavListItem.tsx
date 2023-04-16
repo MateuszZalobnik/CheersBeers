@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { HeartFillIconSvg } from '../Icons/HeartFillIconSvg';
-import { HeartIconSvg } from '../Icons/HeartIconSvg';
 import { Dispatch, SetStateAction } from 'react';
 
 interface BeerItemProps {
@@ -11,6 +10,7 @@ interface BeerItemProps {
   id: string;
   description: string;
   setIds: Dispatch<SetStateAction<number[]>>;
+  setSelectedId: Dispatch<SetStateAction<string | null>>;
   ids: number[];
 }
 
@@ -23,6 +23,7 @@ export const FavListItem: React.FC<BeerItemProps> = ({
   description,
   setIds,
   ids,
+  setSelectedId
 }) => {
   const truncatedDescription = truncateText(description, 20);
 
@@ -34,9 +35,10 @@ export const FavListItem: React.FC<BeerItemProps> = ({
 
   return (
     <Wrapper>
-      {/* <StyledImg src={image} alt={name} /> */}
-      {/* <Image src={image} alt={name} width={100} height={400} /> */}
       <ContentWrapper>
+        <ReadMoreBtn onClick={() => setSelectedId(id)}>
+          Czytaj więcej...
+        </ReadMoreBtn>
         <FavBtn>
           <HeartFillIconSvg onClick={() => removeFav(Number(id))} />
         </FavBtn>
@@ -89,11 +91,6 @@ const ContentWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const StyledImg = styled.img`
-  width: 20%;
-  object-fit: contain;
-`;
-
 const Name = styled.div`
   color: ${({ theme }) => theme.colors.blue};
   font-size: ${({ theme }) => theme.fontSize.m};
@@ -132,4 +129,20 @@ const FavBtn = styled.div`
   margin-left: auto;
   font-size: 40px;
   cursor: pointer;
+`;
+
+const ReadMoreBtn = styled.button`
+  border: none;
+  background-color: ${({ theme }) => theme.colors.darkGrey};
+  color: ${({ theme }) => theme.colors.blue};
+  width: max-content;
+  margin-left: auto;
+  cursor: pointer;
+  font-size: ${({ theme }) => theme.fontSize.m};
+  ${({ theme }) => theme.device.tablet} {
+    font-size: ${({ theme }) => theme.fontSize.l};
+  }
+  :hover {
+    border-bottom: 2px solid ${({ theme }) => theme.colors.blue};
+  }
 `;
