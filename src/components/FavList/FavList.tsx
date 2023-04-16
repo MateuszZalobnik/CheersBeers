@@ -13,6 +13,7 @@ interface FavListProps {
   openFav: boolean;
   setIds: Dispatch<SetStateAction<number[]>>;
   ids: number[];
+  setSelectedId: Dispatch<SetStateAction<string | null>>;
 }
 
 export const FavList: React.FC<FavListProps> = ({
@@ -20,6 +21,7 @@ export const FavList: React.FC<FavListProps> = ({
   openFav,
   setIds,
   ids,
+  setSelectedId,
 }) => {
   const handleClick = () => {
     setOpenFav(false);
@@ -28,7 +30,6 @@ export const FavList: React.FC<FavListProps> = ({
   if (storedIds) {
     const params = JSON.parse(storedIds).join('|');
     const { data, error, isLoading } = useSWR(URL + params, fetcher);
-    console.log(data);
     return (
       <Wrapper className={openFav ? 'slidein' : ''}>
         <Title>Ulubione:</Title>
@@ -57,6 +58,7 @@ export const FavList: React.FC<FavListProps> = ({
                     abv={item.abv}
                     ibu={item.ibu}
                     description={item.description}
+                    setSelectedId={setSelectedId}
                   />
                 );
               }
@@ -117,7 +119,9 @@ const Wrapper = styled.div`
     width: 40%;
     height: 70vh;
     top: 10vh;
-    border: 2px solid ${({ theme }) => theme.colors.lightGrey};
+    -webkit-box-shadow: 8px 8px 24px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 8px 8px 24px 0px rgba(0, 0, 0, 1);
+    box-shadow: 8px 8px 24px 0px rgba(0, 0, 0, 1);
   }
 `;
 
@@ -131,6 +135,6 @@ const CloseBtn = styled.div`
 
 const Title = styled.div`
   text-align: center;
-  color: ${({ theme }) => theme.colors.dark};
+  color: ${({ theme }) => theme.colors.lightGrey};
   font-size: ${({ theme }) => theme.fontSize.l};
 `;

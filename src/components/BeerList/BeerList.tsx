@@ -23,7 +23,6 @@ export const BeerList: React.FC<BeerListProps> = ({
   setIds,
   ids,
 }) => {
-
   useEffect(() => {
     const storedIds = localStorage.getItem('fav');
     if (storedIds) {
@@ -32,7 +31,7 @@ export const BeerList: React.FC<BeerListProps> = ({
   }, []);
   return (
     <Wrapper>
-      <ul>
+      <Ul>
         {data &&
           data.map(
             (item: {
@@ -59,7 +58,7 @@ export const BeerList: React.FC<BeerListProps> = ({
               );
             }
           )}
-      </ul>
+      </Ul>
     </Wrapper>
   );
 };
@@ -67,7 +66,14 @@ export const BeerList: React.FC<BeerListProps> = ({
 const Wrapper = styled.div`
   width: 90%;
   margin: auto;
-  ${({ theme }) => theme.device.tablet} {
-    width: 60%;
-  }
 `;
+
+const Ul = styled.ul`
+  display: block;
+  ${({ theme }) => theme.device.tablet} {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 15px;  
+}
+  `;
